@@ -30,8 +30,8 @@ def _divider() -> dict:
     return {"tag": "hr"}
 
 
-def send_morning(project: dict, day_index: int):
-    """早间推送：今日任务"""
+def send_morning(project: dict, day_index: int, recommendations: list = None):
+    """早间推送：今日任务 + 项目推荐"""
     total = project["total_days"]
     day_num = day_index + 1
     day_tasks = project["tasks"][day_index] if day_index < len(project["tasks"]) else None
@@ -50,13 +50,25 @@ def send_morning(project: dict, day_index: int):
             lines.append(f"{status} {st['content']}")
     lines.append(f"\n_{motivation}_")
 
+    elements = [_md_element("\n".join(lines))]
+
+    # 项目推荐板块
+    if recommendations:
+        elements.append(_divider())
+        rec_lines = ["**🔍 今日开源项目推荐**\n"]
+        for i, rec in enumerate(recommendations, 1):
+            rec_lines.append(f"**{i}. [{rec['name']}]({rec['url']})**")
+            rec_lines.append(f"   ⭐ {rec['stars']}  |  🔤 {rec['language']}")
+            rec_lines.append(f"   {rec['description']}\n")
+        elements.append(_md_element("\n".join(rec_lines)))
+
     card = {
         "config": {"wide_screen_mode": True},
         "header": {
             "title": {"tag": "plain_text", "content": f"🌅 早安！{project['project_name']}"},
             "template": "blue",
         },
-        "elements": [_md_element("\n".join(lines))],
+        "elements": elements,
     }
     return _post(card)
 

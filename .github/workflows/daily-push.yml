@@ -39,6 +39,8 @@ jobs:
         OPENAI_MODEL: glm-4-air
         LLM_PROVIDER: openai
         FEISHU_WEBHOOK_URL: ${{ secrets.FEISHU_WEBHOOK_URL }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_LANGUAGES: python,javascript
       run: python main.py push morning
 
     - name: Run evening push

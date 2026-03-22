@@ -77,7 +77,11 @@ def cmd_push(push_type: str):
         return
     day_index = get_current_day_index(project)
     if push_type == "morning":
-        ok = send_morning(project, day_index)
+        from collector import collect_daily_recommendations
+        print("正在搜寻今日推荐项目...")
+        recommendations = collect_daily_recommendations(count=5)
+        print(f"找到 {len(recommendations)} 个推荐项目")
+        ok = send_morning(project, day_index, recommendations)
     elif push_type == "evening":
         ok = send_evening(project, day_index)
     else:
