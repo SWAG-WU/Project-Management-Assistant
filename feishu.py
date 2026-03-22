@@ -11,6 +11,9 @@ MOTIVATIONS = [
 ]
 
 
+CREATE_WORKFLOW_URL = "https://github.com/SWAG-WU/Project-Management-Assistant/actions/workflows/create-project.yml"
+
+
 def _post(card: dict) -> bool:
     if not FEISHU_WEBHOOK_URL:
         print("[飞书] 未配置 FEISHU_WEBHOOK_URL，跳过推送")
@@ -61,6 +64,16 @@ def send_morning(project: dict, day_index: int, recommendations: list = None):
             rec_lines.append(f"   ⭐ {rec['stars']}  |  🔤 {rec['language']}")
             rec_lines.append(f"   {rec['description']}\n")
         elements.append(_md_element("\n".join(rec_lines)))
+        elements.append(_divider())
+        elements.append({
+            "tag": "action",
+            "actions": [{
+                "tag": "button",
+                "text": {"tag": "plain_text", "content": "🚀 复刻项目（点击创建计划）"},
+                "type": "primary",
+                "url": CREATE_WORKFLOW_URL,
+            }],
+        })
 
     card = {
         "config": {"wide_screen_mode": True},

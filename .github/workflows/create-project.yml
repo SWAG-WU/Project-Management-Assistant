@@ -1,0 +1,50 @@
+name: Create New Project
+
+on:
+  workflow_dispatch:
+    inputs:
+      project_name:
+        description: '项目名称'
+        required: true
+        type: string
+      project_description:
+        description: '项目描述（一两句话）'
+        required: true
+        type: string
+      days:
+        description: '计划天数'
+        required: false
+        default: '7'
+        type: string
+
+jobs:
+  create-project:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+
+    - name: Create project plan
+      env:
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        OPENAI_BASE_URL: https://open.bigmodel.cn/api/paas/v4/
+        OPENAI_MODEL: glm-4-air
+        LLM_PROVIDER: openai
+      run: python main.py new "${{ github.event.inputs.project_name }}" "${{ github.event.inputs.project_description }}" ${{ github.event.inputs.days }}
+
+    - name: Commit project data
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add data/
+        git diff --quiet && git diff --staged --quiet || git commit -m "Create project: ${{ github.event.inputs.project_name }} [skip ci]"
+        git push

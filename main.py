@@ -21,13 +21,25 @@ from feishu import send_morning, send_evening
 
 def cmd_new():
     print("=== 新建项目 ===")
-    name = input("项目名称：").strip()
+    args = sys.argv[2:]
+    if len(args) >= 2:
+        # 非交互模式: python main.py new "项目名" "描述" [天数]
+        name = args[0].strip()
+        description = args[1].strip()
+        days = int(args[2]) if len(args) > 2 and args[2].isdigit() else 7
+    else:
+        # 交互模式
+        name = input("项目名称：").strip()
+        if not name:
+            print("项目名称不能为空")
+            return
+        description = input("项目描述（一两句话）：").strip()
+        days_input = input("计划天数（默认 7）：").strip()
+        days = int(days_input) if days_input.isdigit() else 7
+
     if not name:
         print("项目名称不能为空")
         return
-    description = input("项目描述（一两句话）：").strip()
-    days_input = input("计划天数（默认 7）：").strip()
-    days = int(days_input) if days_input.isdigit() else 7
 
     print(f"\n正在调用 LLM 生成 {days} 天任务计划，请稍候...")
     project = generate_plan(name, description, days)
