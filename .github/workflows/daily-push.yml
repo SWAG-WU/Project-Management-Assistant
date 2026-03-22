@@ -5,6 +5,15 @@ on:
     - cron: '0 1 * * *'   # 9:00 Beijing Time
     - cron: '0 13 * * *'  # 21:00 Beijing Time
   workflow_dispatch:
+    inputs:
+      push_type:
+        description: '推送类型'
+        required: true
+        default: 'morning'
+        type: choice
+        options:
+          - morning
+          - evening
 
 jobs:
   push-tasks:
@@ -23,7 +32,7 @@ jobs:
       run: pip install -r requirements.txt
 
     - name: Run morning push
-      if: github.event.schedule == '0 1 * * *'
+      if: github.event.schedule == '0 1 * * *' || (github.event_name == 'workflow_dispatch' && github.event.inputs.push_type == 'morning')
       env:
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         OPENAI_BASE_URL: https://open.bigmodel.cn/api/paas/v4/
@@ -33,7 +42,7 @@ jobs:
       run: python main.py push morning
 
     - name: Run evening push
-      if: github.event.schedule == '0 13 * * *'
+      if: github.event.schedule == '0 13 * * *' || (github.event_name == 'workflow_dispatch' && github.event.inputs.push_type == 'evening')
       env:
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         OPENAI_BASE_URL: https://open.bigmodel.cn/api/paas/v4/
