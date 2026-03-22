@@ -9,3 +9,9 @@ __pycache__/
 *.egg-info/
 dist/
 build/
+
+# 不上传的文档
+配置清单.md
+需求.md
+自动抓取功能配置指南.md
+GitHub定时推送实现步骤.md
