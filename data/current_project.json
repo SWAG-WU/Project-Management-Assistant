@@ -1,0 +1,120 @@
+{
+  "project_name": "Todo Manager",
+  "description": "A simple todo list management tool",
+  "start_date": "2026-03-22",
+  "total_days": 7,
+  "tasks": [
+    {
+      "day": 1,
+      "title": "Day 1: 需求确认与环境搭建",
+      "subtasks": [
+        {
+          "id": "1-1",
+          "content": "明确核心功能边界，写出 README 草稿",
+          "done": false
+        },
+        {
+          "id": "1-2",
+          "content": "搭建项目目录结构，安装依赖",
+          "done": false
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "title": "Day 2: 核心功能开发 - 数据模型",
+      "subtasks": [
+        {
+          "id": "2-1",
+          "content": "设计 Todo 数据模型（增删改查基础结构）",
+          "done": false
+        },
+        {
+          "id": "2-2",
+          "content": "实现本地存储功能（localStorage）",
+          "done": false
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "title": "Day 3: 核心功能开发 - UI 组件",
+      "subtasks": [
+        {
+          "id": "3-1",
+          "content": "开发 Todo 列表展示组件",
+          "done": false
+        },
+        {
+          "id": "3-2",
+          "content": "实现添加/删除 Todo 功能",
+          "done": false
+        }
+      ]
+    },
+    {
+      "day": 4,
+      "title": "Day 4: 功能完善 - 交互体验",
+      "subtasks": [
+        {
+          "id": "4-1",
+          "content": "添加编辑 Todo 功能",
+          "done": false
+        },
+        {
+          "id": "4-2",
+          "content": "实现任务状态切换（完成/未完成）",
+          "done": false
+        }
+      ]
+    },
+    {
+      "day": 5,
+      "title": "Day 5: 功能完善 - 优化与扩展",
+      "subtasks": [
+        {
+          "id": "5-1",
+          "content": "添加过滤功能（全部/已完成/未完成）",
+          "done": false
+        },
+        {
+          "id": "5-2",
+          "content": "优化 UI 样式与响应式设计",
+          "done": false
+        }
+      ]
+    },
+    {
+      "day": 6,
+      "title": "Day 6: 测试与调试",
+      "subtasks": [
+        {
+          "id": "6-1",
+          "content": "编写单元测试用例",
+          "done": false
+        },
+        {
+          "id": "6-2",
+          "content": "进行功能测试与 bug 修复",
+          "done": false
+        }
+      ]
+    },
+    {
+      "day": 7,
+      "title": "Day 7: 收尾与发布",
+      "subtasks": [
+        {
+          "id": "7-1",
+          "content": "完善 README 文档",
+          "done": false
+        },
+        {
+          "id": "7-2",
+          "content": "部署到静态托管平台",
+          "done": false
+        }
+      ]
+    }
+  ]
+}
