@@ -39,7 +39,10 @@ def send_morning(project: dict, day_index: int):
     import random
     motivation = random.choice(MOTIVATIONS)
 
+    desc = project.get("description", "")
     lines = [f"**📋 今日任务 · Day {day_num}/{total}**\n"]
+    if desc:
+        lines.append(f"**项目简介：** {desc}\n")
     if day_tasks:
         lines.append(f"**{day_tasks['title']}**\n")
         for st in day_tasks["subtasks"]:
@@ -71,7 +74,10 @@ def send_evening(project: dict, day_index: int):
     pct = int(done_count / total_count * 100) if total_count else 0
     bar = "█" * (pct // 10) + "░" * (10 - pct // 10)
 
+    desc = project.get("description", "")
     lines = [f"**📊 进度回顾 · Day {day_num}/{total}**\n"]
+    if desc:
+        lines.append(f"**项目简介：** {desc}\n")
 
     if day_tasks:
         lines.append("**今日任务完成情况：**")
